@@ -9,8 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/clietes")
+@RequestMapping("/clientes")
 @CrossOrigin(origins = "*")
 public class ClienteController {
 
@@ -31,7 +33,17 @@ public class ClienteController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erro interno do servidor");
         }
-
     }
+
+    /**
+     * Listar todos os clientes ativos
+     */
+    @GetMapping
+    public ResponseEntity<List<Cliente>> listar() {
+        List<Cliente> clientes = clienteService.listarAtivos();
+        return ResponseEntity.ok(clientes);
+    }
+
 }
+
 
