@@ -1,11 +1,14 @@
 package com.deliverytech.delivery.service;
 
+import com.deliverytech.delivery.dto.ClienteRequestDTO;
 import com.deliverytech.delivery.entities.Cliente;
 import com.deliverytech.delivery.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,17 +22,25 @@ public class ClienteService {
     /**
      * Cadastrar novo cliente
      */
-    public Cliente cadastrar(Cliente cliente) {
+    public Cliente cadastrar(ClienteRequestDTO dto) {
         // Validar email único
-        if (clienteRepository.existsByEmail(cliente.getEmail())) {
-            throw new IllegalArgumentException("Email já cadastrado: " + cliente.getEmail());
+        if (clienteRepository.existsByEmail(dto.getEmail())) {
+            throw new IllegalArgumentException("Email já cadastrado: " + dto.getEmail());
         }
 
         // Validações de negócio
-        validarDadosCliente(cliente);
+        validarDadosCliente(dto);
+
+        Cliente cliente = new Cliente();
+
+        cliente.setNome(dto.getNome());
+        cliente.setEmail(dto.getEmail());
+        cliente.setTelefone(dto.getTelefone());
+        cliente.setEndereco(dto.getEndereco());
 
         // Definir como ativo por padrão
         cliente.setAtivo(true);
+        cliente.setDataCadastro(LocalDateTime.now());
 
         return clienteRepository.save(cliente);
     }
@@ -102,7 +113,7 @@ public class ClienteService {
     /**
      * Validações de negócio
      */
-    private void validarDadosCliente(Cliente cliente) {
+    private void validarDadosCliente(ClienteRequestDTO cliente) {
         if (cliente.getNome() == null || cliente.getNome().trim().isEmpty()) {
             throw new IllegalArgumentException("Nome é obrigatório");
         }

@@ -1,6 +1,7 @@
 package com.deliverytech.delivery.controller;
 
 
+import com.deliverytech.delivery.dto.ClienteRequestDTO;
 import com.deliverytech.delivery.entities.Cliente;
 import com.deliverytech.delivery.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class ClienteController {
      * Cadastrar novo cliente
      */
     @PostMapping
-    public ResponseEntity<?> cadastrar(@Validated @RequestBody Cliente cliente) {
+    public ResponseEntity<?> cadastrar(@Validated @RequestBody ClienteRequestDTO cliente) {
         try {
             Cliente clienteSalvo = clienteService.cadastrar(cliente);
             return ResponseEntity.status(HttpStatus.CREATED).body(clienteSalvo);
