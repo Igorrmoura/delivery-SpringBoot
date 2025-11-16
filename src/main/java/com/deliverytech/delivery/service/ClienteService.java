@@ -1,6 +1,7 @@
 package com.deliverytech.delivery.service;
 
 import com.deliverytech.delivery.dto.ClienteRequestDTO;
+import com.deliverytech.delivery.dto.ClienteResponseDTO;
 import com.deliverytech.delivery.entities.Cliente;
 import com.deliverytech.delivery.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class ClienteService {
     /**
      * Cadastrar novo cliente
      */
-    public Cliente cadastrar(ClienteRequestDTO dto) {
+    public ClienteResponseDTO cadastrar(ClienteRequestDTO dto) {
         // Validar email único
         if (clienteRepository.existsByEmail(dto.getEmail())) {
             throw new IllegalArgumentException("Email já cadastrado: " + dto.getEmail());
@@ -42,7 +43,7 @@ public class ClienteService {
         cliente.setAtivo(true);
         cliente.setDataCadastro(LocalDateTime.now());
 
-        return clienteRepository.save(cliente);
+        return new ClienteResponseDTO(clienteRepository.save(cliente));
     }
 
     /**
@@ -72,7 +73,7 @@ public class ClienteService {
     /**
      * Atualizar dados do cliente
      */
-    public Cliente atualizar(Long id, Cliente clienteAtualizado) {
+    public ClienteResponseDTO atualizar(Long id, Cliente clienteAtualizado) {
         Cliente cliente = buscarPorId(id)
                 .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado: " + id));
 
@@ -87,8 +88,9 @@ public class ClienteService {
         cliente.setEmail(clienteAtualizado.getEmail());
         cliente.setTelefone(clienteAtualizado.getTelefone());
         cliente.setEndereco(clienteAtualizado.getEndereco());
+        clienteRepository.save(cliente);
 
-        return clienteRepository.save(cliente);
+        return new ClienteResponseDTO(clienteRepository.save(cliente));
     }
 
     /**

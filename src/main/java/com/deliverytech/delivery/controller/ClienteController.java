@@ -2,6 +2,7 @@ package com.deliverytech.delivery.controller;
 
 
 import com.deliverytech.delivery.dto.ClienteRequestDTO;
+import com.deliverytech.delivery.dto.ClienteResponseDTO;
 import com.deliverytech.delivery.entities.Cliente;
 import com.deliverytech.delivery.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class ClienteController {
     @PostMapping
     public ResponseEntity<?> cadastrar(@Validated @RequestBody ClienteRequestDTO cliente) {
         try {
-            Cliente clienteSalvo = clienteService.cadastrar(cliente);
+            ClienteResponseDTO clienteSalvo = clienteService.cadastrar(cliente);
             return ResponseEntity.status(HttpStatus.CREATED).body(clienteSalvo);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
@@ -67,7 +68,7 @@ public class ClienteController {
     public ResponseEntity<?> atualizar(@PathVariable Long id,
                                        @Validated @RequestBody Cliente cliente) {
         try {
-            Cliente clienteAtualizado = clienteService.atualizar(id, cliente);
+            ClienteResponseDTO clienteAtualizado = clienteService.atualizar(id, cliente);
             return ResponseEntity.ok(clienteAtualizado);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
