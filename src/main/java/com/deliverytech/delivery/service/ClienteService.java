@@ -29,8 +29,6 @@ public class ClienteService {
             throw new IllegalArgumentException("Email já cadastrado: " + dto.getEmail());
         }
 
-        // Validações de negócio
-        validarDadosCliente(dto);
 
         Cliente cliente = new Cliente();
 
@@ -115,17 +113,17 @@ public class ClienteService {
     /**
      * Validações de negócio
      */
-    private void validarDadosCliente(ClienteRequestDTO cliente) {
-        if (cliente.getNome() == null || cliente.getNome().trim().isEmpty()) {
-            throw new IllegalArgumentException("Nome é obrigatório");
-        }
+    //private void validarDadosCliente(ClienteRequestDTO cliente) {
+     //   if (cliente.getNome() == null || cliente.getNome().trim().isEmpty()) {
+       //     throw new IllegalArgumentException("Nome é obrigatório");
+        //}
 
-        if (cliente.getEmail() == null || cliente.getEmail().trim().isEmpty()) {
-            throw new IllegalArgumentException("Email é obrigatório");
-        }
+        //if (cliente.getEmail() == null || cliente.getEmail().trim().isEmpty()) {
+          //  throw new IllegalArgumentException("Email é obrigatório");
+        //}
 
-        if (cliente.getNome().length() < 2) {
-            throw new IllegalArgumentException("Nome deve ter pelo menos 2 caracteres");
-        }
-    }
+        //if (cliente.getNome().length() < 2) {
+          //  throw new IllegalArgumentException("Nome deve ter pelo menos 2 caracteres");
+        //}
+
 }

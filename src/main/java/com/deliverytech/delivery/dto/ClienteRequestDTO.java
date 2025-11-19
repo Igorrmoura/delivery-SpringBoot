@@ -1,16 +1,23 @@
 package com.deliverytech.delivery.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
 public class ClienteRequestDTO {
 
+    @NotBlank(message = "o nome é obrigatório")
     private String nome;
 
+    @NotBlank(message = "o email é obrigatório")
+    @Email(message = "o email deve ser válido")
     private String email;
 
+    @NotBlank(message = "o telefone é obrigatório")
     private String telefone;
 
+    @NotBlank(message = "o endereço é obrigatório")
     private String endereco;
 
     public ClienteRequestDTO(String nome, String email, String telefone, String endereco) {
