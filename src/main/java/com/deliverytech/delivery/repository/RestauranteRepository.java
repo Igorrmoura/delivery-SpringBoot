@@ -1,4 +1,4 @@
 package com.deliverytech.delivery.repository;
 
-public class RestauranteRepository {
+public interface RestauranteRepository {
 }
