@@ -1,8 +1,8 @@
 package com.deliverytech.delivery.controller;
 
 
-import com.deliverytech.delivery.dto.ClienteRequestDTO;
-import com.deliverytech.delivery.dto.ClienteResponseDTO;
+import com.deliverytech.delivery.dto.request.ClienteRequestDTO;
+import com.deliverytech.delivery.dto.response.ClienteResponseDTO;
 import com.deliverytech.delivery.entities.Cliente;
 import com.deliverytech.delivery.service.ClienteService;
 import jakarta.validation.Valid;
@@ -85,7 +85,7 @@ public class ClienteController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> inativar(@PathVariable Long id) {
         try {
-            clienteService.inativar(id);
+            clienteService.ativarDesativar(id);
             return ResponseEntity.ok().body("Cliente inativado com sucesso");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body("Erro: " + e.getMessage());

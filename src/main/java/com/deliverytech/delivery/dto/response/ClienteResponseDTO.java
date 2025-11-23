@@ -1,4 +1,4 @@
-package com.deliverytech.delivery.dto;
+package com.deliverytech.delivery.dto.response;
 
 import com.deliverytech.delivery.entities.Cliente;
 import lombok.Data;
@@ -18,12 +18,5 @@ public class ClienteResponseDTO {
 
     private Boolean ativo;
 
-    public ClienteResponseDTO(Cliente save) {
-        this.id = save.getId();
-        this.nome = save.getNome();
-        this.email = save.getEmail();
-        this.telefone = save.getTelefone();
-        this.endereco = save.getEndereco();
-        this.ativo = save.getAtivo();
-    }
+
 }
